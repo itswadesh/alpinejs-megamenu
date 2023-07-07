@@ -44,9 +44,10 @@
 
             <div class="mega-menu relative overflow-hidden border-b bg-white shadow-2xl">
               <div class="absolute inset-0 z-0 grid w-full grid-cols-4">
-                <template x-for="(_, ix) in { length: 4 }">
-                  <div x-bind:class="ix % 2 === 0 ? 'bg-white' : 'bg-zinc-50'"></div>
-                </template>
+                <div class="bg-zinc-50"></div>
+                <div class="bg-white"></div>
+                <div class="bg-zinc-50"></div>
+                <div class="bg-white"></div>
               </div>
 
               <ul class="relative z-10 flex max-h-[75vh] min-h-[50vh] flex-col flex-wrap items-start shadow-inner">
