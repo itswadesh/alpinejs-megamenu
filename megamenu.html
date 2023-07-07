@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/tailwind.js"></script>
+    <script defer src="js/alpine.min.js"></script>
+    <style>
+.mega-menu {
+	visibility: hidden;
+	transition: 0.3s 0.1s; /* delay of 1 seconds on hover off */
+	opacity: 0;
+	left: 0;
+	position: absolute;
+	text-align: left;
+	left: 10%;
+	right: 20%;
+	width: 70%;
+	z-index: 9999;
+}
+
+/* #hoverable Class Styles
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+.hoverable {
+	position: static;
+}
+
+.hoverable > a::after {
+	padding-left: 6px;
+	position: relative;
+}
+
+.hoverable:hover .mega-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.1s;
+}
+</style>
+</head>
+<body>
+    <div class="w-full h-screen">
+        <div class="w-full h-screen bg-opacity-70">
+            <div class="w-full h-full flex flex-col items-start justify-between container mx-auto py-8 px-8 lg:px-4 xl:px-0">
+                <div class="flex-1 flex flex-col items-start">
+                    <h1 class="tracking-wider font-bold font-serif mt-12 text-center md:text-left">
+                       
+                        
+
+
+
+<div
+      x-data="{
+        megamenu: null,
+
+        getMegamenu() {
+            fetch('https://demo.litekart.in/api/categories/megamenu?megamenu=true&store=6356502aca4ff28ed596cb1b')
+                .then((response) => response.json())
+                .then((json) => this.megamenu = json);
+        }
+    }"
+      x-init="getMegamenu()"
+    >
+
+	<ul class="flex flex-row items-center justify-center font-semibold tracking-wide">
+		<template x-for="category in megamenu" >
+			<li
+				class="hoverable mx-1"
+				>
+				<a
+					href="category.link"
+					aria-label="Click to visit category related products page"
+					class="items-center relative flex h-20 shrink-0 justify-center gap-1 whitespace-nowrap border-b-4 border-transparent p-2 font-medium uppercase"
+                	>
+					<!-- Root category -->
+
+					<span x-text="category.name"></span>
+
+					<!-- Down icon -->
+
+					<template x-if="category.children">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 20 20"
+							fill="currentColor"
+							class="h-4 w-4 shrink-0 transition duration-300">
+							<path
+								fill-rule="evenodd"
+								d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+								clip-rule="evenodd"></path>
+						</svg>
+					</template>
+				</a>
+
+				<template x-if="category.children">
+                    <ul class="flex flex-col flex-wrap items-start gap-0.5">
+					<template x-for="level1 in category.children" :key="level1._id">
+                <li>
+                  <span x-text="level1.name"></span>
+                  <ul>
+                    <template
+                      x-for="level2 in level1.children"
+                      :key="level2._id"
+                    >
+                      <span x-text="level2.name"></span>
+                    </template>
+                  </ul>
+                </li>
+              </template>
+              </ul>
+				</template>
+			</li>
+		
+	</ul>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </h1>
+                    
+                   
+                </div>
+                <div class="w-full flex items-center justify-center md:justify-end">
+                    <ul class="flex items-center space-x-4">
+                        <li>
+                            <a href="#" title="ESS">
+                                
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="ESS">
+                                
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="ESS">
+                                
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      
+    </script>
+</body>
+</html>

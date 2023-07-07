@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <script defer src="js/alpine.min.js"></script>
+  </head>
+  <body>
+    <div
+      x-data="{
+        megamenu: null,
+
+        getMegamenu() {
+            fetch('https://demo.litekart.in/api/categories/megamenu?megamenu=true&store=6356502aca4ff28ed596cb1b')
+                .then((response) => response.json())
+                .then((json) => this.megamenu = json);
+        }
+    }"
+      x-init="getMegamenu()"
+    >
+      <ul>
+        <template x-for="level0 in megamenu" :key="level0._id">
+          <li>
+            <span x-text="level0.name"></span>
+            <ul>
+              <template x-for="level1 in level0.children" :key="level1._id">
+                <li>
+                  <span x-text="level1.name"></span>
+                  <ul>
+                    <template
+                      x-for="level2 in level1.children"
+                      :key="level2._id"
+                    >
+                      <span x-text="level2.name"></span>
+                    </template>
+                  </ul>
+                </li>
+              </template>
+            </ul>
+          </li>
+        </template>
+      </ul>
+    </div>
+  </body>
+</html>
