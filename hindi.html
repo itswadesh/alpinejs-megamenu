@@ -5,33 +5,21 @@
     <script src="js/uno.global.js"></script>
   </head>
 
+  
   <body un-cloak>
     <div
       x-data="{
-        birthdays: [],
+        birthdays: [{PBNO:'8586', PHONE:'8586'}, {PBNO:'8587', PHONE:'8587'}, {PBNO:'8588', PHONE:'8588'}, {PBNO:'8589', PHONE:'8589'}, {PBNO:'8590', PHONE:'8590'}, {PBNO:'8591', PHONE:'8591'}],
         retirements: [{PBNO:'8586', PHONE:'8586'}, {PBNO:'8587', PHONE:'8587'}, {PBNO:'8588', PHONE:'8588'}, {PBNO:'8589', PHONE:'8589'}, {PBNO:'8590', PHONE:'8590'}, {PBNO:'8591', PHONE:'8591'}],
         open: false,
-        lang:'english',
+        lang:'hindi',
         megamenu: null,
         selectedCategory: {},
         styles: '',
         getMegamenu() {
-            fetch('http://172.146.70.70:3000/api/halkpt-menu?lang=english')
+            fetch('http://172.146.70.70:3000/api/halkpt-menu?lang=hindi')
                 .then((response) => response.json())
                 .then((json) => this.megamenu = json);
-
-            fetch('http://172.146.70.70:3000/api/gethms', {
-              method:'POST',
-              headers:{
-                Accept:'application.json',
-                'Content-Type':'application/json'
-              },
-              body:JSON.stringify({q:`select T.EMP_FIRST_NAME NAME,T.EMP_CODE PBNO from ifsapp.employee_information_tab@ifslive t where t.date_of_leave is null AND T.EMP_ACTIVE='TRUE' and t.emp_category in ('WKM', 'OFF', 'DT', 'TT') AND TO_CHAR(T.DATE_OF_BIRTH, 'DDMM') = TO_CHAR(SYSDATE, 'DDMM')`})
-            })
-            .then((response) => response.json())
-            .then((json) => {
-              this.birthdays = json
-            });
         }
       }"
       x-init="getMegamenu()"
@@ -70,13 +58,12 @@
       >
         <template x-for="(category, index) in megamenu">
           <li
-            class="hoverable mx-1 cursor-pointer text-lg shadow-lg rounded"
-            style="background-color: rgb(226, 150, 168); font-weight: 700;"
+            class="hoverable mx-1 cursor-pointer"
             x-on:mouseenter="selectedCategory = category.name"
             x-on:mouseleave="selectedCategory = {}"
           >
             <div
-              class="items-center relative flex h-8 shrink-0 justify-center gap-1 whitespace-nowrap border-b-4 border-transparent p-2 font-medium"
+              class="items-center relative flex h-16 shrink-0 justify-center gap-1 whitespace-nowrap border-b-4 border-transparent p-2 font-medium"
               x-bind:class="
             index % 6 === 0 ? 'hover:border-yellow-500' :
             index % 6 === 1 ? 'hover:border-purple-500' :
@@ -91,9 +78,7 @@
             (index % 6 === 4 && selectedCategory === category.name) ? 'border-pink-500' :
             (index % 6 === 5 && selectedCategory === category.name) ? 'border-blue-500' : ''"
             >
-              <span x-if="{category.name == 'Payrolls'}" x-text="Finance"></span>
-              <span x-else-if="{category.name == 'MSD'}" x-text="IT & MS"></span>
-              <span x-else x-html="category.name || ''"></span>
+              <span x-html="category.name || ''"></span>
 
               <div
                 class="mega-menu relative overflow-hidden border-b bg-white shadow-2xl"
@@ -106,7 +91,7 @@
                 </div>
 
                 <ul
-                  class="relative z-10 flex max-h-[75vh] min-h-[50vh] "
+                  class="relative z-10 flex max-h-[75vh] min-h-[50vh] flex-col flex-wrap items-start shadow-inner"
                 >
                   <!-- 2nd level child category  -->
 
@@ -157,12 +142,12 @@
               Sales
             </button>
             <button
-              class="hero-buttons w-36 h-12 text-xl text-center font-bold shadow bg-gray-100 rounded text-gray-600 "
+              class="hero-buttons w-36 h-12 text-xl text-center font-bold shadow bg-gray-100 rounded text-gray-600 bg-gradient-to-r from-purple-500 to-blue-500"
             >
               LD
             </button>
             <button
-              class="hero-buttons w-36 h-12 text-xl text-center font-bold shadow bg-gray-100 rounded text-gray-600"
+              class="hero-buttons w-36 h-12 text-xl text-center font-bold shadow bg-gray-100 rounded text-gray-600 bg-gradient-to-r from-green-500 to-blue-500"
             >
               Prod
             </button>
@@ -217,8 +202,8 @@
               class="aspect-[4/1] lazy h-96 w-full object-cover object-center svelte-p7wre9 entered loaded"
               width="3072"
               height="768"
-              src="img/su30-mki.jpg"
-              data-src="img/su30-mki.jpg"
+              src="img/s.jpg"
+              data-src="img/s.jpg"
               data-ll-status="loaded"
               style=""
             />
@@ -278,12 +263,12 @@
                 alt=""
                 class="p-1 border w-24 h-24 bg-blue text-4xl text-center font-bold shadow-xl rounded-full object-cover object-top"
               />
-              <!-- <span x-text="b.NAME" class="text-xs truncate"/> -->
+              <span x-text="b.PHONE"/>
             </button>
           </template>
         </div>
 
-        <!-- <div class="mw700 mx-auto text-center">
+        <div class="mw700 mx-auto text-center">
           <h2>Retirements</h2>
           <template x-for="(r, index) in retirements">
             <button class="">
@@ -295,7 +280,7 @@
               <span x-text="r.PHONE"/>
             </button>
           </template>
-        </div> -->
+        </div>
       </div>
     </div>
 
@@ -315,8 +300,7 @@
         text-align: center;
       }
       .hero-buttons {
-        /* background-image: url('img/pattern.jpg'); */
-        background-color: skyblue;
+        background-image: url('img/pattern.jpg');
         background-repeat: repeat-x;
         background-blend-mode: color;
       }
@@ -346,7 +330,7 @@
         opacity: 0;
         position: fixed;
         text-align: left;
-        top: 185;
+        top: 200;
         left: 0;
         right: 0;
         width: 100vw;
